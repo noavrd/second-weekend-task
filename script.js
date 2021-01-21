@@ -77,28 +77,67 @@ let allObj = [{
 for (let i = 0; i < allObj.length; i++) {
     //calculate tasksFinishedPercents
     allObj[i].tasksFinishedPercents = (Math.floor((allObj[i].tasksFinished / allObj[i].tasksGiven) *100 ));
-    //console.log(tasksFinishedPercents);
+   //console.log(tasksFinishedPercents);
     let total = 0;
     let hours = 0;
     let minutes = 0;
 
     //calculate totalTime
     hours = allObj[i].finishedAt.getHours() - allObj[i].startedAt.getHours();
-    //console.log(hours);
     minutes = allObj[i].finishedAt.getMinutes() - allObj[i].startedAt.getMinutes();
-    //console.log(minutes);
     minutes = minutes / 60;
-    //console.log(minutes);
     total = minutes + hours;
-    //console.log(total);
     allObj[i].totalTime = total;
-    //console.log(allObj[i].totalTime);
 
-    
-    allObj[i].startedAt = (allObj[i].startedAt.getHours() + ":" +allObj[i].startedAt.getMinutes());
-    allObj[i].finishedAt = (allObj[i].finishedAt.getHours() + ":" +allObj[i].finishedAt.getMinutes());
- 
+
+    let hourStart = allObj[i].startedAt.getHours();
+    hourStart = hourStart.toString();
+
+    let hourFinish = allObj[i].finishedAt.getHours();
+    hourFinish = hourFinish.toString();
+
+    let minuteStart = allObj[i].startedAt.getMinutes();
+    minuteStart = minuteStart.toString();
+
+    let minuteFinish = allObj[i].finishedAt.getMinutes();
+    minuteFinish = minuteFinish.toString();
+
+    if (minuteStart < 10 ) {
+        minuteStart = `${minuteStart}0`;
+    }
+    if (minuteFinish < 10) {
+        minuteFinish = `${minuteFinish}0`;
+
+    }
+    if (hourStart < 10 ) {
+        hourStart = `0${hourStart}` ;
+
+    }
+    if (hourFinish < 10) {
+        hourFinish = `0${hourFinish}`;
+    }
+
+    allObj[i].startedAt = hourStart + ":" + minuteStart;
+    allObj[i].finishedAt = hourFinish + ":" + minuteFinish;
+
+   
+
+    //changeColor(allObj[i].totalTime);
+
 }
+
+function changeColor(color){
+    if(color < 4) {
+        document.write.style.backgroundColor = "green";
+    } else if(color < 8) {
+        document.write.style.backgroundColor = "yellow";
+
+    } else {
+        document.write.style.backgroundColor = "red";
+
+    }
+}
+
 
 document.write('<table>');
 function tableHead (table, data) {
