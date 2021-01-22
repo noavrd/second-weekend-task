@@ -74,32 +74,31 @@ let allObj = [{
 ];
 
 
-for (let i = 0; i < allObj.length; i++) {
+
+for (let obj of allObj) {
     //calculate tasksFinishedPercents
-    allObj[i].tasksFinishedPercents = (Math.floor((allObj[i].tasksFinished / allObj[i].tasksGiven) *100 ));
-   //console.log(tasksFinishedPercents);
+    obj.tasksFinishedPercents = (Math.floor((obj.tasksFinished / obj.tasksGiven) *100 ));
     let total = 0;
     let hours = 0;
     let minutes = 0;
 
     //calculate totalTime
-    hours = allObj[i].finishedAt.getHours() - allObj[i].startedAt.getHours();
-    minutes = allObj[i].finishedAt.getMinutes() - allObj[i].startedAt.getMinutes();
+    hours = obj.finishedAt.getHours() - obj.startedAt.getHours();
+    minutes = obj.finishedAt.getMinutes() - obj.startedAt.getMinutes();
     minutes = minutes / 60;
     total = minutes + hours;
-    allObj[i].totalTime = total;
+    obj.totalTime = total;
 
-
-    let hourStart = allObj[i].startedAt.getHours();
+    let hourStart = obj.startedAt.getHours();
     hourStart = hourStart.toString();
 
-    let hourFinish = allObj[i].finishedAt.getHours();
+    let hourFinish = obj.finishedAt.getHours();
     hourFinish = hourFinish.toString();
 
-    let minuteStart = allObj[i].startedAt.getMinutes();
+    let minuteStart = obj.startedAt.getMinutes();
     minuteStart = minuteStart.toString();
 
-    let minuteFinish = allObj[i].finishedAt.getMinutes();
+    let minuteFinish = obj.finishedAt.getMinutes();
     minuteFinish = minuteFinish.toString();
 
     if (minuteStart < 10 ) {
@@ -117,54 +116,35 @@ for (let i = 0; i < allObj.length; i++) {
         hourFinish = `0${hourFinish}`;
     }
 
-    allObj[i].startedAt = hourStart + ":" + minuteStart;
-    allObj[i].finishedAt = hourFinish + ":" + minuteFinish;
-
-   
-
-    //changeColor(allObj[i].totalTime);
+    obj.startedAt = hourStart + ":" + minuteStart;
+    obj.finishedAt = hourFinish + ":" + minuteFinish;
 
 }
 
-function changeColor(color){
-    if(color < 4) {
-        document.write.style.backgroundColor = "green";
-    } else if(color < 8) {
-        document.write.style.backgroundColor = "yellow";
 
-    } else {
-        document.write.style.backgroundColor = "red";
 
-    }
+//create table
+document.write("<table>"); //style = 'background-color: blue'
+document.write("<tr>");
+document.write("<th>startedAt</th>");
+document.write("<th>finishedAt</th>");
+document.write("<th>totalTime</th>");
+document.write("<th>tasksGiven</th>");
+document.write("<th>tasksFinished</th>");
+document.write("<th>tasksFinishedPercents</th>");
+document.write("<th>topic</th>");
+document.write("</tr>");
+for (let sub of allObj) {
+    document.write("<tr>");
+    document.write(`<td>${sub.startedAt}</td>`);
+    document.write(`<td>${sub.finishedAt}</td>`);
+    let timeTo = changeColorTotal(sub.totalTime);
+    document.write(`<td style = "background-color:${timeTo}">${sub.totalTime}</td>`);
+    document.write(`<td>${sub.tasksGiven}</td>`);
+    document.write(`<td>${sub.tasksFinished}</td>`);
+    let percentsFin = changeColorFinishedPercents(sub.tasksFinishedPercents);
+    document.write(`<td style = "background-color:${percentsFin}">${sub.tasksFinishedPercents}</td>`);
+    document.write(`<td>${sub.topic}</td>`);
+    document.write("</tr>");
 }
-
-
-document.write('<table>');
-function tableHead (table, data) {
-    let thead = table.createTHead();
-    let row = thead.insertRow();
-    for (let key of data) {
-        let th = document.createElement("th");
-        let text = document.createTextNode(key);
-        th.appendChild(text);
-        row.appendChild(th);
-    }
-}
-
-function generateTable(table, data) {
-    for (let element of data) {
-        let row = table.insertRow();
-        for (key in element) {
-            let cell = row.insertCell();
-            let text = document.createTextNode(element[key]);
-            cell.appendChild(text);
-        }
-    }
-}
-
-let table = document.querySelector("table");
-let data = Object.keys(allObj[0]);
-tableHead(table, data);
-generateTable(table, allObj);
-document.write('</table>');
-
+document.write("</table>");
