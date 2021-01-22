@@ -121,8 +121,6 @@ for (let obj of allObj) {
 
 }
 
-
-
 //create table
 document.write("<table>"); //style = 'background-color: blue'
 document.write("<tr>");
@@ -148,3 +146,24 @@ for (let sub of allObj) {
     document.write("</tr>");
 }
 document.write("</table>");
+
+//select the color of totalTime
+function changeColorTotal(color) {
+    if (color.toString() < 4) {
+        return "green";
+    } else if (color.toString() < 8) {
+        return "yellow";
+    } else {
+        return "red";
+    }
+}
+//select the color of FinishedPercents
+function changeColorFinishedPercents(col) {
+    if (col.toString() < 35) {
+        return "red";
+    } else if (col.toString() < 70) {
+        return "yellow";
+    } else {
+        return "green";
+    }
+}
