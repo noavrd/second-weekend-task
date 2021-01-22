@@ -11,7 +11,7 @@ let allObj = [{
     finishedAt: new Date("2021-01-11:17:30"),
     totalTime: 0 ,
     tasksGiven: 22,
-    tasksFinished: 18,
+    tasksFinished: 6,
     tasksFinishedPercents: 0,
     topic: "HTML"
 }, {
@@ -35,7 +35,7 @@ let allObj = [{
     finishedAt: new Date("2021-01-14:20:00"),
     totalTime: 14 ,
     tasksGiven: 10,
-    tasksFinished: 8,
+    tasksFinished: 3,
     tasksFinishedPercents: 0,
     topic: "More HTML"
 }, {
@@ -64,10 +64,10 @@ let allObj = [{
     topic: "Arrays"
 }, {
     startedAt : new Date("2021-01-18:10:30"),
-    finishedAt: new Date("2021-01-18:17:30"),
+    finishedAt: new Date("2021-01-19:9:30"),
     totalTime: 0 ,
     tasksGiven: 16,
-    tasksFinished: 9,
+    tasksFinished: 6,
     tasksFinishedPercents: 0,
     topic: "Objects"
 },
@@ -78,17 +78,12 @@ let allObj = [{
 for (let obj of allObj) {
     //calculate tasksFinishedPercents
     obj.tasksFinishedPercents = (Math.floor((obj.tasksFinished / obj.tasksGiven) *100 ));
-    let total = 0;
-    let hours = 0;
-    let minutes = 0;
 
     //calculate totalTime
-    hours = obj.finishedAt.getHours() - obj.startedAt.getHours();
-    minutes = obj.finishedAt.getMinutes() - obj.startedAt.getMinutes();
-    minutes = minutes / 60;
-    total = minutes + hours;
-    obj.totalTime = total;
-
+    let orr =( (obj.finishedAt - obj.startedAt) /3600000 );
+    obj.totalTime = orr;
+    
+    //display only the hours and minutes in startedAt & finishedAt
     let hourStart = obj.startedAt.getHours();
     hourStart = hourStart.toString();
 
@@ -100,6 +95,16 @@ for (let obj of allObj) {
 
     let minuteFinish = obj.finishedAt.getMinutes();
     minuteFinish = minuteFinish.toString();
+
+    let dayStart = obj.startedAt.getDay();
+    dayStart = dayStart.toString();
+
+    let dayFinish = obj.finishedAt.getDay();
+    dayFinish = dayFinish.toString();
+
+    if (dayFinish > dayStart) {
+
+    }
 
     if (minuteStart < 10 ) {
         minuteStart = `${minuteStart}0`;
@@ -121,16 +126,17 @@ for (let obj of allObj) {
 
 }
 
+
 //create table
-document.write("<table>"); //style = 'background-color: blue'
+document.write("<table>"); 
 document.write("<tr>");
-document.write("<th>startedAt</th>");
-document.write("<th>finishedAt</th>");
-document.write("<th>totalTime</th>");
-document.write("<th>tasksGiven</th>");
-document.write("<th>tasksFinished</th>");
-document.write("<th>tasksFinishedPercents</th>");
-document.write("<th>topic</th>");
+document.write("<th>Started At</th>");
+document.write("<th>Finished At</th>");
+document.write("<th>Total Time</th>");
+document.write("<th>Tasks Given</th>");
+document.write("<th>Tasks Finished</th>");
+document.write("<th>Tasks Finished %</th>");
+document.write("<th>Topic</th>");
 document.write("</tr>");
 for (let sub of allObj) {
     document.write("<tr>");
@@ -150,20 +156,20 @@ document.write("</table>");
 //select the color of totalTime
 function changeColorTotal(color) {
     if (color.toString() < 4) {
-        return "green";
+        return "#86f4c8";
     } else if (color.toString() < 8) {
-        return "yellow";
+        return "#ffffaa";
     } else {
-        return "red";
+        return "#ff3959";
     }
 }
 //select the color of FinishedPercents
 function changeColorFinishedPercents(col) {
-    if (col.toString() < 35) {
-        return "red";
-    } else if (col.toString() < 70) {
-        return "yellow";
+    if (col.toString() < 40) {
+        return "#ff3959";
+    } else if (col.toString() < 75) {
+        return "#ffffaa";
     } else {
-        return "green";
+        return "#86f4c8";
     }
 }
