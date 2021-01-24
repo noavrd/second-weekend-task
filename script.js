@@ -125,44 +125,30 @@ for (let obj of allObj) {
 
 
 //create table
-//an array of all the headline od the tab
-let arrHeadline = ["started At", "Finished At", "Total Time", "Tasks Given", "Tasks Finished","Tasks Finished %", "Topic"];
-let table = document.createElement("table");
-document.body.append(table);
-
-//adding head of the table
-let thead = document.createElement("thead");
-table.append(thead)
-let tr = document.createElement("tr");
-thead.append(tr);
-
-for (let i = 0; i < 7; i++){
-    let th = document.createElement("th");
-    th.innerText = arrHeadline[i];
-    tr.append(th);
+document.write("<table>"); 
+document.write("<tr>");
+document.write("<th>Started At</th>");
+document.write("<th>Finished At</th>");
+document.write("<th>Total Time</th>");
+document.write("<th>Tasks Given</th>");
+document.write("<th>Tasks Finished</th>");
+document.write("<th>Tasks Finished %</th>");
+document.write("<th>Topic</th>");
+document.write("</tr>");
+for (let sub of allObj) {
+    document.write("<tr>");
+    document.write(`<td>${sub.startedAt}</td>`);
+    document.write(`<td>${sub.finishedAt}</td>`);
+    let timeTo = changeColorTotal(sub.totalTime);
+    document.write(`<td style = "background-color:${timeTo}">${sub.totalTime}</td>`);
+    document.write(`<td>${sub.tasksGiven}</td>`);
+    document.write(`<td>${sub.tasksFinished}</td>`);
+    let percentsFin = changeColorFinishedPercents(sub.tasksFinishedPercents);
+    document.write(`<td style = "background-color:${percentsFin}">${sub.tasksFinishedPercents}</td>`);
+    document.write(`<td>${sub.topic}</td>`);
+    document.write("</tr>");
 }
-
-//adding body of the table
-let tbody = document.createElement("tbody");
-table.append(tbody);
-for (let element of allObj) {
-    let secTr = document.createElement("tr");
-    tbody.append(secTr);
-    for (let sub in element) {
-        let td = document.createElement("td");
-        let textTable = document.createTextNode(element[sub]);
-        td.append(textTable);
-        secTr.append(td);
-        if(sub === "totalTime") {
-            let timeTo = changeColorTotal(element.totalTime);
-            td.style.backgroundColor = timeTo;
-        }
-        if(sub === "tasksFinishedPercents") {
-            let percentsFin = changeColorFinishedPercents(element.tasksFinishedPercents);
-            td.style.backgroundColor = percentsFin;
-        }
-    }
-}
+document.write("</table>");
 
 //select the color of totalTime
 function changeColorTotal(color) {
