@@ -102,9 +102,6 @@ for (let obj of allObj) {
     let dayFinish = obj.finishedAt.getDay();
     dayFinish = dayFinish.toString();
 
-    if (dayFinish > dayStart) {
-
-    }
 
     if (minuteStart < 10 ) {
         minuteStart = `${minuteStart}0`;
@@ -128,19 +125,24 @@ for (let obj of allObj) {
 
 
 //create table
+//an array of all the headline od the tab
 let arrHeadline = ["started At", "Finished At", "Total Time", "Tasks Given", "Tasks Finished","Tasks Finished %", "Topic"];
 let table = document.createElement("table");
 document.body.append(table);
+
+//adding head of the table
 let thead = document.createElement("thead");
 table.append(thead)
 let tr = document.createElement("tr");
 thead.append(tr);
+
 for (let i = 0; i < 7; i++){
     let th = document.createElement("th");
     th.innerText = arrHeadline[i];
     tr.append(th);
 }
 
+//adding body of the table
 let tbody = document.createElement("tbody");
 table.append(tbody);
 for (let element of allObj) {
@@ -159,28 +161,8 @@ for (let element of allObj) {
             let percentsFin = changeColorFinishedPercents(element.tasksFinishedPercents);
             td.style.backgroundColor = percentsFin;
         }
-
-        
-        
     }
-
 }
-
-
- 
-// for (let sub of allObj) {
-//     document.write("<tr>");
-//     document.write(`<td>${sub.startedAt}</td>`);
-//     document.write(`<td>${sub.finishedAt}</td>`);
-//     let timeTo = changeColorTotal(sub.totalTime);
-//     document.write(`<td style = "background-color:${timeTo}">${sub.totalTime}</td>`);
-//     document.write(`<td>${sub.tasksGiven}</td>`);
-//     document.write(`<td>${sub.tasksFinished}</td>`);
-//     let percentsFin = changeColorFinishedPercents(sub.tasksFinishedPercents);
-//     document.write(`<td style = "background-color:${percentsFin}">${sub.tasksFinishedPercents}</td>`);
-//     document.write(`<td>${sub.topic}</td>`);
-//     document.write("</tr>");
-// }
 
 //select the color of totalTime
 function changeColorTotal(color) {
