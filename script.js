@@ -143,12 +143,25 @@ for (let i = 0; i < 7; i++){
 
 let tbody = document.createElement("tbody");
 table.append(tbody);
-for (let arr of allObj) {
+for (let element of allObj) {
     let secTr = document.createElement("tr");
     tbody.append(secTr);
-    for (let sub of arr) {
+    for (let sub in element) {
         let td = document.createElement("td");
+        let textTable = document.createTextNode(element[sub]);
+        td.append(textTable);
         secTr.append(td);
+        if(sub === "totalTime") {
+            let timeTo = changeColorTotal(element.totalTime);
+            td.style.backgroundColor = timeTo;
+        }
+        if(sub === "tasksFinishedPercents") {
+            let percentsFin = changeColorFinishedPercents(element.tasksFinishedPercents);
+            td.style.backgroundColor = percentsFin;
+        }
+
+        
+        
     }
 
 }
